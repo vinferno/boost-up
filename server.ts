@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT ? process.env.PORT : 5000;
 
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+
 app.use(express.static('public'));
 app.use(express.static('vendor'));
 app.get('/', (req, res) => {
@@ -9,7 +13,12 @@ app.get('/', (req, res) => {
 });
 
 
+io.on('connection', function(socket){
+    console.log('a user connected');
+});
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+http.listen(port, function(){
+    console.log('listening on *:' + port);
+});
 
 
