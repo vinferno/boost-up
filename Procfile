@@ -1,1 +1,1 @@
-web: node server
+web:tsc server.ts && node server.js
