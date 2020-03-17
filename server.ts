@@ -12,9 +12,28 @@ app.get('/', (req, res) => {
     res.sendFile( __dirname + '/landing/index.html');
 });
 
+const socketMap = {
+
+};
+
+
 
 io.on('connection', function(socket){
+
     console.log('a user connected');
+    actionConnected(socket);
+
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+        delete socketMap[socket.id];
+        console.log('unknown connections:', calcShowConnectedKeys() );
+    });
+    socket.on('register', function(msg){
+        console.log('user register');
+        console.log('unknown connections:', calcShowConnectedKeys() );
+        socket.emit('second', msg)
+    });
+
 });
 
 http.listen(port, function(){
@@ -22,3 +41,14 @@ http.listen(port, function(){
 });
 
 
+function actionConnected (socket) {
+    socket.emit('connected', socket.id);
+    addSocketId(socket);
+    socket.emit('connected-ids', calcShowConnectedKeys());
+}
+function addSocketId (socket) {
+    socketMap[socket.id] = socket.id;
+}
+function calcShowConnectedKeys () {
+    return Object.keys(socketMap);
+}

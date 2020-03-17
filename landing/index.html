@@ -8,23 +8,51 @@
     <link type="text/css" rel="stylesheet" href="basic.css">
     <link rel="icon" type="image/png" href="favico.png" sizes="32x32">
     <script src="socket.io.js"></script>
-    <script>
-        var socket = io();
-    </script>
+
 
 </head>
 <body>
+<pre>
+
+</pre>
 <h1></h1>
 <div>
 
 </div>
+
+
+<ul id="unknown">
+
+</ul>
+<ul id="known">
+
+</ul>
 <script>
     const globalData = {
         pageTitle: 'Boost-UP: Landing',
+        socketId: null,
     };
-
     document.title = globalData.pageTitle;
     document.querySelector('h1').innerHTML = globalData.pageTitle;
+    const socket = io();
+    console.log('send request to connect');
+    socket.on('connected', function (id) {
+        console.log('connected', id );
+        globalData.socketId = id;
+        updatePre(globalData);
+    });
+    socket.on('connected-ids', function (ids) {
+        globalData.ids = ids;
+        updatePre(globalData);
+    });
+    socket.emit('register', 'money');
+    socket.on('second', function(msg){
+        console.log('user second');
+        console.log('unknown connections:', msg );
+    });
+    function updatePre(value) {
+        document.querySelector('pre').innerHTML = JSON.stringify(value);
+    }
 
 </script>
 </body>
