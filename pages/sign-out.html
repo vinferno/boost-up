@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to right, #00f260, #0575e6);
+            background:  linear-gradient(to right, #ffc500, #c21500 );;
             height: 100vh;
             display: grid;
             grid-template-areas:
@@ -69,13 +69,13 @@
 <div class="left"></div>
 <div class="mid">
     <div class="title">
-        PoWeR⇡
+        TuRNOfF⇣
         <div class="sub-title">
-            productions
+            sign out
         </div>
     </div>
     <div class="register">
-        <input type="text" ><button onclick="onRegister()">Submit</button>
+        <input disabled type="text"><button onclick="logOff()">Logout</button>
     </div>
 </div>
 <div class="right"></div>
@@ -83,15 +83,8 @@
 
 <script>
     socket.on('confirm-register', function (name) {
-        console.log('confirm register');
         document.querySelector('input').value = name;
-        socket.emit('request-redirect', '/whos-online')
-    });
-    function onRegister() {
-        const value = document.querySelector('input').value;
-        console.log(value);
-        register(value);
-    }
+    })
 </script>
 
 

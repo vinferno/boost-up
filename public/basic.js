@@ -16,10 +16,23 @@ socket.on('connected-ids', function (ids) {
 socket.on('io-userData', function(userData){
     globalData['userData'] = userData;
 });
+socket.on('confirm-log-off', function(userData){
+    globalData['userData'] = userData;
+});
+socket.on('redirect', function(path){
+    if (!window.location.href.endsWith(path)) {
+        window.location.href = window.location.origin + path;
+    }
+});
 function getUserBySocket(socketID) {
     if (globalData.userData) {
         return Object.values(globalData.userData).filter( user => user.socketID === socketID)[0];
     }
+}
+
+function logOff() {
+    socket.emit('log-off');
+    localStorage.setItem('name', '')
 }
 
 function register(value) {

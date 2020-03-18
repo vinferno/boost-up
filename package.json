@@ -6,6 +6,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "es6-shim": "^0.35.5",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "image-thumbnail": "^1.0.4",
     "moment": "^2.24.0",
@@ -20,6 +21,6 @@
     "@types/express-serve-static-core": "^4.16.7"
   },
   "scripts": {
-    "start": "node server.ts"
+    "start": "node -r esm server.ts"
   }
 }
