@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #00f260, #0575e6);
+            height: 100vh;
+            display: grid;
+            grid-template-areas:
+                    "top top top"
+                    "left mid right"
+                    "left mid right"
+                    "bottom bottom bottom"
+                    "bottom bottom bottom";
+        }
+
+        .top {
+            grid-area: top;
+        }
+        .bottom {
+            grid-area: bottom;
+        }
+        .left {
+            grid-area: left;
+        }
+        .right {
+            grid-area: right;
+        }
+        .mid {
+            grid-area: mid;
+        }
+        .register {
+            display: flex;
+        }
+        .register > *:nth-child(1) {
+            flex: 1;
+        }
+        .title {
+            font-size: calc(10vw);
+            text-underline: black;
+            text-align: center;
+            font-family: 'Righteous', cursive;
+            position: relative;
+        }
+        button {
+            background: linear-gradient(to right, white, grey);
+        }
+        .sub-title {
+            position: absolute;
+            bottom: calc(1.5vw);;
+            color: white;
+            font-size: calc(3vw);
+            right: calc(8vw);
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="basic.css">
+    <link rel="icon" type="image/png" href="favico.png" sizes="32x32">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="skeleton.css">
+    <script src="socket.io.js"></script>
+    <script src="basic.js"></script>
+</head>
+<body>
+
+<div class="top"></div>
+<div class="left"></div>
+<div class="mid">
+    <div class="title">
+        PoWeR⇡
+        <div class="sub-title">
+            productions
+        </div>
+    </div>
+    <div class="register">
+        <input type="text"><button>Submit</button>
+    </div>
+</div>
+<div class="right"></div>
+<div class="bottom"></div>
+
+<script>
+    socket.on('confirm-register', function (name) {
+        document.querySelector('input').value = name;
+    })
+</script>
+
+
+</body>
+</html>
