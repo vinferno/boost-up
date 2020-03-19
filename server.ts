@@ -1,4 +1,10 @@
-import * as User from './server/models/user';
+
+import 'es6-shim';
+import 'reflect-metadata';
+
+const User = require('./server/models/user');
+
+console.log(User, 'user');
 require('dotenv').config ();
 const cors = require('cors');
 const db_uri = `mongodb://${process.env.DBUSER}:${process.env.DBPASS}@ds061395.mlab.com:61395/power-up`;
@@ -55,6 +61,7 @@ io.on('connection', function(socket){
         console.log('register:', name);
         userData[name] = { socketID: socket.id, name};
         socket.emit('confirm-register', name);
+        console.log(User);
         const user = new User({name});
         sendUserData();
     });
