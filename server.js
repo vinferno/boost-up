@@ -1,20 +1,29 @@
 "use strict";
 exports.__esModule = true;
+console.log('*IMPORTS********');
 require("es6-shim");
 require("reflect-metadata");
-var User = require('./server/models/user');
-console.log(User, 'user');
-require('dotenv').config();
-var cors = require('cors');
-var db_uri = "mongodb://" + process.env.DBUSER + ":" + process.env.DBPASS + "@ds061395.mlab.com:61395/power-up";
-cors();
+console.log('*CONST IMPORTS********');
 var mongoose = require('mongoose');
+var User = require('./server/models/user');
+var cors = require('cors');
+var express = require('express');
+console.log('*EXECUTE GLOBAL MIDDLEWARE********');
+require('dotenv').config();
+cors();
+console.log('*CONSTS*******');
+var db_uri = "mongodb://" + process.env.DBUSER + ":" + process.env.DBPASS + "@ds061395.mlab.com:61395/power-up";
 console.log('db_uri', db_uri);
+console.log('*TRY DATABASE CONNECT********', db_uri);
 mongoose.connect(db_uri, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () { console.log('Connected to database was successful!'); });
-var express = require('express');
+db.once('open', function () {
+    console.log('Connected to database was successful! Start the server....');
+    http.listen(port, function () {
+        console.log('listening on *:' + port);
+    });
+});
 var app = express();
 var port = process.env.PORT ? process.env.PORT : 5000;
 var http = require('http').createServer(app);
@@ -84,9 +93,6 @@ function getRooms(socketID) {
 function getUserBySocket(socketID) {
     return Object.values(userData).filter(function (user) { return user['socketID'] === socketID; })[0];
 }
-http.listen(port, function () {
-    console.log('listening on *:' + port);
-});
 function actionConnected(socket) {
     socket.emit('connected', socket.id);
     addSocketId(socket);
