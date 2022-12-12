@@ -7,7 +7,7 @@
     "dotenv": "^8.0.0",
     "es6-shim": "^0.35.5",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "image-thumbnail": "^1.0.4",
     "moment": "^2.24.0",
     "mongoose": "^5.6.8",
